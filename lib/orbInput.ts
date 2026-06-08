@@ -8,7 +8,9 @@ export function isOrbNameChar(char: string): boolean {
 }
 
 export function canSubmitOrb(text: string): boolean {
-  return pickOrbNameFromText(text) !== null;
+  const trimmed = text.trim();
+  if (!trimmed) return false;
+  return pickOrbNameFromText(trimmed) !== null;
 }
 
 /**

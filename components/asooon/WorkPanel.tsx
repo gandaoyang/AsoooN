@@ -26,24 +26,28 @@ export function WorkPanel({
   onToggleFlow,
   onClear,
 }: WorkPanelProps) {
-  const [text, setText] = useState("");
+  const [draft, setDraft] = useState("");
+  const [draftKey, setDraftKey] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const zone = zones[activeZone];
   const activeEntries = allEntries[activeZone];
 
-  const getInputText = () =>
-    (textareaRef.current?.value ?? text).trim();
+  const readDraft = () => (textareaRef.current?.value ?? draft).trim();
 
-  const canSubmit = canSubmitOrb(getInputText());
+  const canSubmit = canSubmitOrb(draft);
 
-  const syncText = (value: string) => setText(value);
+  const syncDraft = (value: string) => setDraft(value);
+
+  const resetDraft = () => {
+    setDraft("");
+    setDraftKey((key) => key + 1);
+  };
 
   const handleSubmit = () => {
-    const value = getInputText();
+    const value = readDraft();
     if (!canSubmitOrb(value)) return;
     onAddEntry(value);
-    setText("");
-    if (textareaRef.current) textareaRef.current.value = "";
+    resetDraft();
   };
 
   return (
@@ -69,12 +73,13 @@ export function WorkPanel({
       <div className="desc">{zone.desc}</div>
 
       <textarea
+        key={`draft-${activeZone}-${draftKey}`}
         ref={textareaRef}
-        value={text}
-        onChange={(e) => syncText(e.target.value)}
-        onInput={(e) => syncText(e.currentTarget.value)}
-        onCompositionUpdate={(e) => syncText(e.currentTarget.value)}
-        onCompositionEnd={(e) => syncText(e.currentTarget.value)}
+        defaultValue=""
+        onChange={(e) => syncDraft(e.target.value)}
+        onInput={(e) => syncDraft(e.currentTarget.value)}
+        onCompositionUpdate={(e) => syncDraft(e.currentTarget.value)}
+        onCompositionEnd={(e) => syncDraft(e.currentTarget.value)}
         placeholder="例如：我想到最近网站还没做好，心里有一点急，也想快点让它有生命力……"
       />
 
@@ -84,7 +89,6 @@ export function WorkPanel({
             type="button"
             className={`primary${canSubmit ? "" : " is-waiting"}`}
             onClick={handleSubmit}
-            aria-disabled={!canSubmit}
           >
             确认，生成光球
           </button>

@@ -107,14 +107,22 @@ button.primary {
 }
 
 button.primary.is-waiting {
-  opacity: 0.45;
-  cursor: default;
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(231, 200, 100, 0.12);
+  opacity: 0.55;
+  cursor: pointer;
+  background: linear-gradient(
+    135deg,
+    rgba(231, 200, 100, 0.22),
+    rgba(157, 95, 28, 0.12)
+  );
+  border-color: rgba(231, 200, 100, 0.2);
 }
 
 button.primary.is-waiting:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: linear-gradient(
+    135deg,
+    rgba(231, 200, 100, 0.3),
+    rgba(157, 95, 28, 0.16)
+  );
 }
 
 .actions {
