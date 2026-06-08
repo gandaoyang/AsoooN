@@ -27,8 +27,11 @@ export function VisualClock() {
 
   return (
     <div className="visual-clock" suppressHydrationWarning>
-      <div className="visual-clock-date">{now ? formatDate(now) : "—"}</div>
-      <div className="visual-clock-time">{now ? formatTime(now) : "—"}</div>
+      <span className="visual-clock-date">{now ? formatDate(now) : "—"}</span>
+      <span className="visual-clock-sep" aria-hidden>
+        ·
+      </span>
+      <span className="visual-clock-time">{now ? formatTime(now) : "—"}</span>
     </div>
   );
 }
