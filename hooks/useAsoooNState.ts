@@ -21,7 +21,7 @@ export function useAsoooNState() {
   const [hydrated, setHydrated] = useState(false);
   const [selectedOrb, setSelectedOrb] = useState<{
     orb: OrbEntry;
-    zoneLabel: string;
+    zone: ChakraZone;
   } | null>(null);
 
   useEffect(() => {
@@ -54,6 +54,7 @@ export function useAsoooNState() {
         ...prev,
         [activeZone]: [...prev[activeZone], orb],
       }));
+      setFlowing(true);
     },
     [activeZone],
   );
@@ -80,9 +81,18 @@ export function useAsoooNState() {
     [snapshots],
   );
 
+  const removeEntry = useCallback((zone: ChakraZone, orbId: string) => {
+    setEntries((prev) => ({
+      ...prev,
+      [zone]: prev[zone].filter((item) => item.id !== orbId),
+    }));
+    setSelectedOrb(null);
+  }, []);
+
   const clearAll = useCallback(() => {
     setEntries(emptyEntries());
     setFlowing(false);
+    setSelectedOrb(null);
   }, []);
 
   const totalOrbs = countTotal(entries);
@@ -103,8 +113,13 @@ export function useAsoooNState() {
     saveSnapshot,
     loadSnapshot,
     clearAll,
-    showOrb: (orb: OrbEntry, zoneLabel: string) =>
-      setSelectedOrb({ orb, zoneLabel }),
+    showOrb: (orb: OrbEntry, zone: ChakraZone) =>
+      setSelectedOrb({ orb, zone }),
     closeOrbModal: () => setSelectedOrb(null),
+    removeEntry,
+    deleteSelectedOrb: () => {
+      if (!selectedOrb) return;
+      removeEntry(selectedOrb.zone, selectedOrb.orb.id);
+    },
   };
 }

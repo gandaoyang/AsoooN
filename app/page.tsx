@@ -20,6 +20,7 @@ export default function HomePage() {
     clearAll,
     showOrb,
     closeOrbModal,
+    deleteSelectedOrb,
   } = useAsoooNState();
 
   return (
@@ -31,7 +32,7 @@ export default function HomePage() {
           entries={entries}
           flowing={flowing}
           totalOrbs={totalOrbs}
-          onOrbClick={(orb, zone) => showOrb(orb, zones[zone].label)}
+          onOrbClick={(orb, zone) => showOrb(orb, zone)}
         />
 
         <aside className="side">
@@ -43,14 +44,18 @@ export default function HomePage() {
             onAddEntry={addEntry}
             onToggleFlow={toggleFlow}
             onClear={clearAll}
+            onOrbClick={(orb) => showOrb(orb, activeZone)}
           />
         </aside>
       </main>
 
       <OrbModal
         orb={selectedOrb?.orb ?? null}
-        zoneLabel={selectedOrb?.zoneLabel ?? ""}
+        zoneLabel={
+          selectedOrb ? zones[selectedOrb.zone].label : ""
+        }
         onClose={closeOrbModal}
+        onDelete={deleteSelectedOrb}
       />
     </div>
   );

@@ -2,11 +2,15 @@ export function Header() {
   return (
     <div className="top">
       <div className="brand">
-        <div className="mark" />
-        <div>
-          <h1 className="brand-name">AsoooN</h1>
-          <div className="sub">看见这些影响你节奏的生活点滴。</div>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/asooon-logo.png"
+          alt="AsoooN"
+          className="brand-logo"
+          width={56}
+          height={56}
+        />
+        <div className="sub">看见此刻影响你的节奏点滴</div>
       </div>
     </div>
   );

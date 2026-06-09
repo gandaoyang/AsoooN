@@ -43,55 +43,25 @@ body {
 
 .brand {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
 }
 
-.mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid rgba(231, 200, 100, 0.42);
-  box-shadow: 0 0 32px rgba(231, 200, 100, 0.18);
-  position: relative;
+.brand-logo {
+  width: 56px;
+  height: 56px;
   flex-shrink: 0;
-}
-
-.mark::before,
-.mark::after {
-  content: "";
-  position: absolute;
-  inset: 9px;
-  border: 1px solid rgba(231, 200, 100, 0.38);
   border-radius: 50%;
-  transform: rotate(45deg) scaleX(0.55);
-}
-
-.mark::after {
-  transform: rotate(-45deg) scaleX(0.55);
-}
-
-h1 {
-  font-size: 20px;
-  margin: 0;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-
-.brand-name {
-  font-family: "Orbitron", "Courier New", "Lucida Console", monospace;
-  font-style: italic;
-  font-weight: 600;
-  font-size: 22px;
-  letter-spacing: 0.18em;
-  color: rgba(255, 248, 220, 0.98);
-  text-shadow: 0 0 18px rgba(231, 200, 100, 0.28);
+  object-fit: cover;
+  object-position: center;
+  filter: drop-shadow(0 0 14px rgba(231, 200, 100, 0.28));
 }
 
 .sub {
   font-size: 13px;
   color: var(--muted);
-  margin-top: 5px;
+  line-height: 1.5;
+  max-width: 16em;
 }
 
 button {
@@ -428,11 +398,28 @@ textarea {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(231, 200, 100, 0.1);
   border-radius: 16px;
   padding: 10px;
   min-height: 60px;
+  color: inherit;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.orb-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(231, 200, 100, 0.22);
+}
+
+.orb-item-text {
+  min-width: 0;
+  flex: 1;
 }
 
 .dot {
@@ -484,6 +471,23 @@ textarea {
 .modal p {
   color: var(--muted);
   line-height: 1.8;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+button.danger {
+  background: rgba(220, 90, 90, 0.14);
+  border-color: rgba(220, 90, 90, 0.28);
+}
+
+button.danger:hover {
+  background: rgba(220, 90, 90, 0.22);
+  border-color: rgba(220, 90, 90, 0.4);
 }
 
 .history {
